@@ -17,5 +17,10 @@ void DebugPrint(char *message);
  */
 void Printlnf(char *format, ...);
 
+/**
+ * 打印数组
+ */
+void PrintIntArray(int[], int);
+
 
 #endif //DEMO_1_GENERIC_EXT_H

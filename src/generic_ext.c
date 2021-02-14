@@ -31,3 +31,13 @@ void Printlnf(char *format, ...) {
     va_end(args);
 }
 
+/**
+ * 打印数组
+ */
+void PrintIntArray(int array[], int length) {
+    for (int i = 0; i < length; ++i) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+}
+
