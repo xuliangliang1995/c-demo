@@ -7,10 +7,12 @@ project(${ProjectId} C)
 set(CMAKE_C_STANDARD 11)
 
 include_directories("include")
+include_directories("tinycthread/source")
 
 file(GLOB files "${CMAKE_CURRENT_SOURCE_DIR}/*.c")
 foreach(file ${files})
     get_filename_component(name ${file} NAME)
-    add_executable(${name} ${file} src/tempuration_conversion.c src/generic_ext.c)
+    add_executable(${name} ${file} src/tempuration_conversion.c src/generic_ext.c tinycthread/source/tinycthread.c)
     target_compile_definitions(${name} PUBLIC DEBUG)
 endforeach()
+
