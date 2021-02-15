@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <tinycthread.h>
 
-int PrintHello(void) {
-    printf("Run in new thread [%#x]: Hello world !\n", thrd_current());
+int PrintHello(char *char_val) {
+    printf("Run in new thread [%#x]: %s !\n", thrd_current(), char_val);
     return 2;
 }
 
