@@ -189,7 +189,7 @@ int mtx_timedlock(mtx_t *mtx, const struct timespec *ts)
   int rc;
   struct timespec cur, dur;
 
-  /* Try to acquire the lock and, if we fail, sleep for 5ms. */
+  /* Try to acquire the lock_flag and, if we fail, sleep for 5ms. */
   while ((rc = pthread_mutex_trylock (mtx)) == EBUSY) {
     timespec_get(&cur, TIME_UTC);
 
@@ -895,7 +895,7 @@ int _tthread_timespec_get(struct timespec *ts, int base)
 #if defined(_TTHREAD_WIN32_)
 void call_once(once_flag *flag, void (*func)(void))
 {
-  /* The idea here is that we use a spin lock (via the
+  /* The idea here is that we use a spin lock_flag (via the
      InterlockedCompareExchange function) to restrict access to the
      critical section until we have initialized it, then we use the
      critical section to block until the callback has completed
@@ -906,20 +906,20 @@ void call_once(once_flag *flag, void (*func)(void))
     {
       case 0:
         if (InterlockedCompareExchange (&(flag->status), 1, 0) == 0) {
-          InitializeCriticalSection(&(flag->lock));
-          EnterCriticalSection(&(flag->lock));
+          InitializeCriticalSection(&(flag->lock_flag));
+          EnterCriticalSection(&(flag->lock_flag));
           flag->status = 2;
           func();
           flag->status = 3;
-          LeaveCriticalSection(&(flag->lock));
+          LeaveCriticalSection(&(flag->lock_flag));
           return;
         }
         break;
       case 1:
         break;
       case 2:
-        EnterCriticalSection(&(flag->lock));
-        LeaveCriticalSection(&(flag->lock));
+        EnterCriticalSection(&(flag->lock_flag));
+        LeaveCriticalSection(&(flag->lock_flag));
         break;
     }
   }

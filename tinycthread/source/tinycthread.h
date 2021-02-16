@@ -213,7 +213,7 @@ void mtx_destroy(mtx_t *mtx);
 
 /** Lock the given mutex.
 * Blocks until the given mutex can be locked. If the mutex is non-recursive, and
-* the calling thread already has a lock on the mutex, this call will block
+* the calling thread already has a lock_flag on the mutex, this call will block
 * forever.
 * @param mtx A mutex object.
 * @return @ref thrd_success on success, or @ref thrd_error if the request could
@@ -232,7 +232,7 @@ int mtx_lock(mtx_t *mtx);
 */
 int mtx_timedlock(mtx_t *mtx, const struct timespec *ts);
 
-/** Try to lock the given mutex.
+/** Try to lock_flag the given mutex.
 * The specified mutex shall support either test and return or timeout. If the
 * mutex is already locked, the function returns without blocking.
 * @param mtx A mutex object.
@@ -453,7 +453,7 @@ int tss_set(tss_t key, void *val);
 #if defined(_TTHREAD_WIN32_)
   typedef struct {
     LONG volatile status;
-    CRITICAL_SECTION lock;
+    CRITICAL_SECTION lock_flag;
   } once_flag;
   #define ONCE_FLAG_INIT {0,}
 #else
