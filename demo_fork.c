@@ -21,7 +21,7 @@ void ForkDemo1(void) {
         printf("hello, I am child (pid : %d)\n", (int) getpid());
         x = 6;
         printf("x = %d\n", x);
-        exit(0);
+        // exit(0);
     } else {
         // 父进程（当前进程）
         int wc = wait(NULL);
@@ -29,6 +29,8 @@ void ForkDemo1(void) {
         printf("hello, I am parent of %d (pid : %d)\n", wc, (int) getpid());
         printf("x = %d\n", x);
     }
+    // 子进程也能执行到这里
+    printf(">>>> %d\n", (int)getpid());
 }
 
 void ForkDemo2(void) {
@@ -109,8 +111,8 @@ void ForkDemo3(void) {
 
 int main() {
     ForkDemo1();
-    ForkDemo2();
-    ForkDemo3();
+    //ForkDemo2();
+    //ForkDemo3();
     return 0;
 }
 
